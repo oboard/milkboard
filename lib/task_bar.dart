@@ -19,10 +19,11 @@ class _TaskBarState extends State<TaskBar> {
       clipBehavior: Clip.hardEdge,
       height: 48,
       child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: const Row(
-            children: [],
-          )),
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: const Row(
+          children: [],
+        ),
+      ),
     );
   }
 }

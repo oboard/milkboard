@@ -20,6 +20,7 @@ class WindowObject {
     this.position = const Offset(0, 0),
     this.size = const Size(1, 1),
     this.type = WindowType.normal,
+    this.zIndex = 0,
   });
 
   String title = '';
@@ -27,19 +28,22 @@ class WindowObject {
   Offset position = const Offset(0, 0);
   Size size = const Size(1, 1);
   WindowType type = WindowType.normal;
+  int zIndex = 0;
 
   WindowObject copyWith(
       {String? title,
       Widget? child,
       Offset? position,
       Size? size,
-      WindowType? type}) {
+      WindowType? type,
+      int? order}) {
     return WindowObject(
       title: title ?? this.title,
       child: child ?? this.child,
       position: position ?? this.position,
       size: size ?? this.size,
       type: type ?? this.type,
+      zIndex: order ?? this.zIndex,
     );
   }
 }

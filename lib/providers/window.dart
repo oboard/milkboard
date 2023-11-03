@@ -13,8 +13,9 @@ final _backgroundWindow = WindowObject(
 );
 
 final _toolBarWindow = WindowObject(
-  title: 'Background',
+  title: 'TaskBar',
   type: WindowType.fullscreen,
+  zIndex: 1000,
   child: const Align(
     alignment: Alignment.bottomCenter,
     child: TaskBar(),

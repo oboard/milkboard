@@ -14,12 +14,13 @@ class WindowFrame extends StatelessWidget {
       case WindowType.normal:
         return Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
             color: colorScheme.surface,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.2),
                 spreadRadius: 5,
-                blurRadius: 7,
+                blurRadius: 20,
                 offset: const Offset(0, 3),
               ),
             ],
@@ -30,13 +31,17 @@ class WindowFrame extends StatelessWidget {
           //   maxHeight: MediaQuery.of(context).size.height - 48,
           //   maxWidth: MediaQuery.of(context).size.width,
           // ),
-          child: Column(
-            children: [
-              TitleBar(widget),
-              Expanded(
-                child: widget.child,
-              ),
-            ],
+          child: ClipRRect(
+            clipBehavior: Clip.antiAlias,
+            borderRadius: BorderRadius.circular(8),
+            child: Column(
+              children: [
+                TitleBar(widget),
+                Expanded(
+                  child: widget.child,
+                ),
+              ],
+            ),
           ),
         );
       case WindowType.fullscreen:

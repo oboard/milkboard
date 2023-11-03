@@ -13,15 +13,26 @@ class TitleBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
+    Size screenSize = MediaQuery.of(context).size;
     return GestureDetector(
       // 拖拽移动
       onPanStart: (details) {
         offsetPosition = details.localPosition;
       },
       onPanUpdate: (details) {
+        Offset newGlobalPosition = details.globalPosition;
+        newGlobalPosition = Offset(
+          newGlobalPosition.dx / screenSize.width,
+          newGlobalPosition.dy / screenSize.height,
+        );
+        Offset newPosition = newGlobalPosition - offsetPosition;
+        newPosition = Offset(
+          newPosition.dx.clamp(0, 1),
+          newPosition.dy.clamp(0, 1),
+        );
         ref.read(windowsProvider.notifier).updatePosition(
               window,
-              details.globalPosition - offsetPosition,
+              newPosition,
             );
       },
 
