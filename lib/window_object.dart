@@ -20,6 +20,7 @@ class WindowObject {
     this.position = const Offset(0, 0),
     this.size = const Size(1, 1),
     this.type = WindowType.normal,
+    this.state = WindowState.normal,
     this.zIndex = 0,
   });
 
@@ -27,6 +28,7 @@ class WindowObject {
   Widget child = const SizedBox();
   Offset position = const Offset(0, 0);
   Size size = const Size(1, 1);
+  WindowState state = WindowState.normal;
   WindowType type = WindowType.normal;
   int zIndex = 0;
 
@@ -35,6 +37,7 @@ class WindowObject {
       Widget? child,
       Offset? position,
       Size? size,
+      WindowState? state,
       WindowType? type,
       int? order}) {
     return WindowObject(
@@ -42,6 +45,7 @@ class WindowObject {
       child: child ?? this.child,
       position: position ?? this.position,
       size: size ?? this.size,
+      state: state ?? this.state,
       type: type ?? this.type,
       zIndex: order ?? this.zIndex,
     );

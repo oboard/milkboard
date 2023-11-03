@@ -22,17 +22,21 @@ final _toolBarWindow = WindowObject(
   ),
 );
 
+final _helloWorldWindow = WindowObject(
+  title: 'Hello World',
+  child: const Center(
+    child: Text('Hello World'),
+  ),
+  size: const Size(0.5, 0.5),
+);
+
 final windowsProvider =
     StateNotifierProvider<WindowsNotifier, List<WindowObject>>(
   (ref) => WindowsNotifier([
     _backgroundWindow,
     _toolBarWindow,
-    WindowObject(
-      child: const Center(
-        child: Text('Hello World'),
-      ),
-      size: const Size(0.5, 0.5),
-    ),
+    _helloWorldWindow,
+    _helloWorldWindow,
   ]),
 );
 
@@ -54,5 +58,25 @@ class WindowsNotifier extends StateNotifier<List<WindowObject>> {
       }
       return existingItem;
     }).toList();
+  }
+
+  void top(WindowObject window) {
+    // 窗口置顶
+    window.zIndex = getTop() + 1;
+
+    state = [...state];
+    // state.sort((a, b) => a.zIndex.compareTo(b.zIndex));
+  }
+
+  int getTop() {
+    return state
+        .map((e) => e.type == WindowType.normal ? e.zIndex : 0)
+        .reduce((value, element) {
+      return (value > element) ? value : element;
+    });
+  }
+
+  bool isActive(WindowObject window) {
+    return window.zIndex == getTop();
   }
 }

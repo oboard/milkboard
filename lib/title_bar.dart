@@ -15,9 +15,22 @@ class TitleBar extends ConsumerWidget {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     Size screenSize = MediaQuery.of(context).size;
     return GestureDetector(
+      onDoubleTap: () {
+        // 全屏
+        if (window.size.width == 1 && window.size.height == 1) {
+          window.size = const Size(0.5, 0.5);
+          window.position = const Offset(0.25, 0.25);
+        } else {
+          window.size = const Size(1, 1);
+          window.position = const Offset(0, 0);
+        }
+      },
       // 拖拽移动
       onPanStart: (details) {
-        offsetPosition = details.localPosition;
+        offsetPosition = Offset(
+          details.localPosition.dx / screenSize.width,
+          details.localPosition.dy / screenSize.height,
+        );
       },
       onPanUpdate: (details) {
         Offset newGlobalPosition = details.globalPosition;
@@ -27,8 +40,8 @@ class TitleBar extends ConsumerWidget {
         );
         Offset newPosition = newGlobalPosition - offsetPosition;
         newPosition = Offset(
-          newPosition.dx.clamp(0, 1),
-          newPosition.dy.clamp(0, 1),
+          newPosition.dx.clamp(0, 1 - window.size.width),
+          newPosition.dy.clamp(0, 1 - window.size.height),
         );
         ref.read(windowsProvider.notifier).updatePosition(
               window,
@@ -44,9 +57,6 @@ class TitleBar extends ConsumerWidget {
             const Spacer(),
             Text(window.title),
             const Spacer(),
-            const SizedBox(width: 8),
-            const Icon(Icons.close),
-            const SizedBox(width: 8),
           ],
         ),
       ),
