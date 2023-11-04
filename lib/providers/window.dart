@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:milkboard/launchpad.dart';
 import 'package:milkboard/task_bar.dart';
 import 'package:milkboard/window_object.dart';
 
-final _backgroundWindow = WindowObject(
+final backgroundWindow = WindowObject(
   title: 'Background',
   type: WindowType.fullscreen,
   child: Image.asset(
@@ -22,6 +23,13 @@ final _toolBarWindow = WindowObject(
   ),
 );
 
+final _launchpadWindow = WindowObject(
+  title: 'LaunchPad',
+  type: WindowType.fullscreen,
+  zIndex: 999,
+  child: const LaunchPad(),
+);
+
 final _helloWorldWindow = WindowObject(
   title: 'Hello World',
   child: const Center(
@@ -33,7 +41,8 @@ final _helloWorldWindow = WindowObject(
 final windowsProvider =
     StateNotifierProvider<WindowsNotifier, List<WindowObject>>(
   (ref) => WindowsNotifier([
-    _backgroundWindow,
+    backgroundWindow,
+    _launchpadWindow,
     _toolBarWindow,
     _helloWorldWindow,
     _helloWorldWindow,

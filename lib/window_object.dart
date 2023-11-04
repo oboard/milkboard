@@ -16,6 +16,7 @@ class WindowObject {
   // 构造
   WindowObject({
     this.title = '',
+    this.icon = const Icon(Icons.ac_unit),
     required this.child,
     this.position = const Offset(0, 0),
     this.size = const Size(1, 1),
@@ -26,6 +27,7 @@ class WindowObject {
 
   String title = '';
   Widget child = const SizedBox();
+  Widget icon = const Icon(Icons.ac_unit);
   Offset position = const Offset(0, 0);
   Size size = const Size(1, 1);
   WindowState state = WindowState.normal;
@@ -34,6 +36,7 @@ class WindowObject {
 
   WindowObject copyWith(
       {String? title,
+      Widget? icon,
       Widget? child,
       Offset? position,
       Size? size,
@@ -42,6 +45,7 @@ class WindowObject {
       int? order}) {
     return WindowObject(
       title: title ?? this.title,
+      icon: icon ?? this.icon,
       child: child ?? this.child,
       position: position ?? this.position,
       size: size ?? this.size,

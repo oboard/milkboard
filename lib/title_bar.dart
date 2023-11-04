@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:milkboard/providers/window.dart';
@@ -14,6 +16,14 @@ class TitleBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     Size screenSize = MediaQuery.of(context).size;
+
+    double overTop = 0;
+    if (window.position.dy <
+        MediaQuery.of(context).padding.top / screenSize.height) {
+      overTop = MediaQuery.of(context).padding.top -
+          window.position.dy * screenSize.height;
+    }
+
     return GestureDetector(
       onDoubleTap: () {
         // 全屏
@@ -50,8 +60,9 @@ class TitleBar extends ConsumerWidget {
       },
 
       child: Container(
+        padding: EdgeInsets.only(top: overTop),
         color: colorScheme.primaryContainer,
-        height: 48,
+        height: 48 + overTop,
         child: Row(
           children: [
             const Spacer(),
