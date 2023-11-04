@@ -4,6 +4,7 @@ enum WindowState {
   normal,
   minimized,
   maximized,
+  closing,
 }
 
 enum WindowType {

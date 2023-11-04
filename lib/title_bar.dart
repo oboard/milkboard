@@ -1,8 +1,8 @@
-import 'dart:math';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:milkboard/providers/window.dart';
+import 'package:milkboard/widgets/new_button.dart';
 import 'package:milkboard/window_object.dart';
 
 Offset offsetPosition = const Offset(0, 0);
@@ -63,11 +63,31 @@ class TitleBar extends ConsumerWidget {
         padding: EdgeInsets.only(top: overTop),
         color: colorScheme.primaryContainer,
         height: 48 + overTop,
-        child: Row(
+        child: Stack(
           children: [
-            const Spacer(),
-            Text(window.title),
-            const Spacer(),
+            SizedBox(
+              height: 48 + overTop,
+              child: Row(
+                children: [
+                  const Spacer(),
+                  Text(window.title),
+                  const Spacer(),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: NSButton(
+                onPressed: () {
+                  ref.read(windowsProvider.notifier).close(window);
+                },
+                child: const SizedBox(
+                  width: 48,
+                  height: 48,
+                  child: Icon(CupertinoIcons.xmark),
+                ),
+              ),
+            )
           ],
         ),
       ),

@@ -30,23 +30,10 @@ final _launchpadWindow = WindowObject(
   child: const LaunchPad(),
 );
 
-final _helloWorldWindow = WindowObject(
-  title: 'Hello World',
-  child: const Center(
-    child: Text('Hello World'),
-  ),
-  size: const Size(0.5, 0.5),
-);
-
 final windowsProvider =
     StateNotifierProvider<WindowsNotifier, List<WindowObject>>(
-  (ref) => WindowsNotifier([
-    backgroundWindow,
-    _launchpadWindow,
-    _toolBarWindow,
-    _helloWorldWindow,
-    _helloWorldWindow,
-  ]),
+  (ref) =>
+      WindowsNotifier([backgroundWindow, _launchpadWindow, _toolBarWindow]),
 );
 
 class WindowsNotifier extends StateNotifier<List<WindowObject>> {
@@ -87,5 +74,13 @@ class WindowsNotifier extends StateNotifier<List<WindowObject>> {
 
   bool isActive(WindowObject window) {
     return window.zIndex == getTop();
+  }
+
+  void add(WindowObject windowObject) {
+    state = [...state, windowObject];
+  }
+
+  void close(WindowObject window) {
+    state = state.where((element) => element != window).toList();
   }
 }
